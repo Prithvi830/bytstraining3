@@ -1,0 +1,37 @@
+public class Solution {
+    public int[] nextGreaterElements(int[] nums) {
+        if (nums.length == 0) {
+            return nums;
+        }
+        int max = nums[0],
+            maxIndex = 0;
+        
+        for (int i = 1; i < nums.length; ++i) {
+            if (nums[i] > max) {
+                maxIndex = i;
+                max = nums[i];
+            }
+        }
+        
+        int[] nextGreaters = new int[nums.length];
+        nextGreaters[maxIndex] = -1;
+            
+        for (int offset = 1; offset < nums.length; ++offset) {
+            int curr = (maxIndex + nums.length - offset) % nums.length,
+                candidate = (curr + 1) % nums.length;
+            while (candidate != -1 && nums[candidate] <= nums[curr]) {
+                candidate = nextGreaters[candidate];
+            }
+            nextGreaters[curr] = candidate;
+        }
+        
+        for (int i = 0; i < nums.length; ++i) {
+            if (nextGreaters[i] != -1) {
+                nextGreaters[i] = nums[nextGreaters[i]];
+            }
+        }
+        
+        return nextGreaters;
+
+    }
+}
