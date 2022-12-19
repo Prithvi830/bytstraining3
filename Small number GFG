@@ -1,0 +1,27 @@
+class Solution{
+
+
+    static String smallestNumber(int S, int D){
+        long start=(long)Math.pow(10,D-1);
+        long end=(long)Math.pow(10,D)-1;
+        while(start<=end){
+            int k=D;
+            int cSum=0;
+            long numb=start;
+            while(k>0){
+                long q= (long) (numb/Math.pow(10,k-1));
+                cSum+=q;
+                numb=numb-(long)q* (long)Math.pow(10,k-1);
+                k--;
+            }
+            if(cSum== S){
+                return start+"";
+            }
+            start++;
+        }
+        return "-1";
+    }
+
+
+}
+
